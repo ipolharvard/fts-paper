@@ -1,0 +1,60 @@
+defaults:
+  - _self_
+  - dataset: mimic
+  - override hydra/launcher: joblib
+
+input_dir: ???
+output_dir: data/tokenized_datasets
+out_fn: null
+vocab: null
+num_quantiles: 10
+
+code_counts_fn: code_counts.csv
+quantiles_fn: quantiles.json
+intervals_fn: interval_estimates.json
+
+time_intervals_spec:
+  5m-15m:
+    minutes: 5
+  15m-45m:
+    minutes: 15
+  45m-1h15m:
+    minutes: 45
+  1h15m-2h:
+    hours: 1
+    minutes: 15
+  2h-3h:
+    hours: 2
+  3h-5h:
+    hours: 3
+  5h-8h:
+    hours: 5
+  8h-12h:
+    hours: 8
+  12h-18h:
+    hours: 12
+  18h-1d:
+    hours: 18
+  1d-2d:
+    days: 1
+  2d-4d:
+    days: 2
+  4d-7d:
+    days: 4
+  7d-12d:
+    days: 7
+  12d-20d:
+    days: 12
+  20d-30d:
+    days: 20
+  30d-2mt:
+    days: 30
+  2mt-6mt:
+    days: 60
+  =6mt:
+    days: 180
+
+worker: 0
+
+hydra:
+  output_subdir: null

@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ethos"
+version = "0.1.0"
+description = "ETHOS: Enhanced Transformer for Health Outcome Simulation"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.11"
+dependencies = [
+    "hydra-core",
+    "hydra-joblib-launcher",
+    "loguru",
+    "meds_transforms==0.1.1",
+    "numpy",
+    "polars >= 1.26.0, <= 1.27.9",
+    "pyarrow",
+    "safetensors",
+    "torch",
+    "tqdm",
+    "transformers",
+    "wandb",
+]
+
+[project.optional-dependencies]
+all = [
+    "ethos[dev]",
+    "ethos[tests]",
+    "ethos[jupyter]",
+]
+dev = ["pre-commit<4"]
+tests = ["pytest"]
+jupyter = ["jupyter", "seaborn", "scikit-learn", "matplotlib", "pandas", "altair", "pylatex", "vl-convert-python"]
+
+[project.scripts]
+ethos_tokenize = "ethos.tokenize.run_tokenization:main"
+ethos_train = "ethos.train.run_training:main"
+ethos_infer = "ethos.inference.run_inference:main"
+ethos_synth = "ethos.synthetic.generate_dataset:main"
+
+[tool.setuptools.package-data]
+ethos = ["tokenize/maps/*.csv.gz", "tokenize/maps/*.parquet"]

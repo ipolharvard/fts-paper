@@ -1,0 +1,26 @@
+task: ???
+model_fp: ???
+input_dir: ???
+output_dir: "results"
+output_fn: null
+
+temperature: 1.0
+
+dataset_kwargs: null # dataset_kwargs.{arg_name}={arg_value}, it is passed to the dataset constructor
+subset: null # subset of the dataset to use for inference < 1 is fraction, >= 1 is the number of samples
+rep_num: 1
+save_generated_tokens: false
+
+device: "cuda" # "cuda" or "cpu"
+n_jobs: 1 # jobs per cpu or per gpu
+n_gpus: 1
+no_compile: false # compilation might not work on older systems
+
+result_chunk_size: 32000
+chunksize: 1
+timeout: 600
+
+seed: 42
+
+hydra:
+  output_subdir: null

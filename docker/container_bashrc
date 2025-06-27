@@ -1,0 +1,35 @@
+# This bashrc is intended to be used within the project container
+# in order to set things up correctly for an interactive session
+
+# If running non-interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# Set the terminal prompt to be the project name
+# This covers up the ugly "no name" that would be there otherwise
+export PS1="\[\033[01;31m\][ethos-docker] \033[01;30m\]\w > \[\033[01;00m\]"
+
+# Edit path so that user space editable installs can be found
+export PATH=/.local/bin:${PATH}
+REPO_DIR="/ethos"
+if [[ -f ${REPO_DIR}/pyproject.toml ]]
+then
+    pip install --no-dependencies --local -e $REPO_DIR
+    echo "Project python package at ${REPO_DIR} has been installed in editable mode"
+else
+    cat<<WARN
+
+WARNING: The project repository is not mounted as expected at ${REPO_DIR}.
+If you later clone the repository, you can install the python package
+with
+    pip install --no-dependencies --local -e <path to repository>
+WARN
+fi
+
+# In case running on Ubuntu 22.04, this is needed so that the virtualenvs
+# created by pre-commit will be created correctly. This may get resolved
+# at some point and no longer be needed
+# See https://github.com/pre-commit/pre-commit/issues/2299
+# Fix from https://github.com/pypa/virtualenv/issues/2350#issuecomment-1150822654
+export DEB_PYTHON_INSTALL_LAYOUT='deb'
+
+echo ""
