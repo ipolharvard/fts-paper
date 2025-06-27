@@ -157,7 +157,7 @@ ethos_infer \
     input_dir=$dataset_dir/train \
     output_dir=results/$task_name/$dataset_$model \
     output_fn=synthetic_\$(date +%Y-%m-%d_%H-%M-%S) \
-    save_generated_tokens=true \ # it is crucial to saves the trajectories
+    save_generated_tokens=true \ # it is crucial to save the trajectories (this will be default in the future)
     n_gpus=8
 ```
 
